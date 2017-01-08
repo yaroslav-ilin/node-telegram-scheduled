@@ -1,0 +1,33 @@
+{
+  "name": "telegram-scheduled",
+  "version": "0.0.4",
+  "description": "Scheduled posting to Telegram using Bots API",
+  "main": "dist/index",
+  "scripts": {
+    "build": "rm -rf dist/ && tsc",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilfalse/node-telegram-scheduled"
+  },
+  "keywords": ["telegram", "schedule", "post", "mongodb", "postgre", "postgresql"],
+  "author": "Yaroslav Ilin <nilfalse@yandex.com>",
+  "homepage": "https://github.com/nilfalse/node-telegram-scheduled#readme",
+  "engines": {
+    "node": "7.x"
+  },
+  "dependencies": {
+    "mongodb": "^2.2.22",
+    "pg-promise": "^5.5.0",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^2.1.38",
+    "@types/node": "^7.0.5",
+    "@types/pg-promise": "0.0.28",
+    "@types/request": "0.0.39",
+    "typescript": "^2.1.6"
+  }
+}
