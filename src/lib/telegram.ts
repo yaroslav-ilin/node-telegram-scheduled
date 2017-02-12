@@ -6,6 +6,11 @@ export interface ITelegramPhoto {
     caption: string
 }
 
+export interface ITelegramDocument {
+    document: string
+    caption: string
+}
+
 export default class TelegramBot {
     constructor(
         protected token: string,
@@ -34,8 +39,16 @@ export default class TelegramBot {
     async sendPhoto(params: ITelegramPhoto): Promise<{}> {
         const payload = Object.assign({}, params, { chat_id: this.chatId });
         if (!payload.caption) {
-            delete payload.caption;
+            payload.caption = '';
         }
         return this._request('https://api.telegram.org/bot' + this.token + '/sendPhoto', payload);
+    }
+
+    async sendDocument(params: ITelegramDocument): Promise<{}> {
+        const payload = Object.assign({}, params, { chat_id: this.chatId });
+        if (!payload.caption) {
+            payload.caption = '';
+        }
+        return this._request('https://api.telegram.org/bot' + this.token + '/sendDocument', payload);
     }
 };

@@ -32,12 +32,22 @@ export interface IPost {
 export enum PostState { ANY, BANNED, READY, SCHEDULED, POSTED }
 
 // TODO: expand with other possible payloads
-export type IPayload = IPhotoPayload[] | IPhotoPayload;
+export type IPayload =
+    IPhotoPayload    | IPhotoPayload[]   |
+    IDocumentPayload | IDocumentPayload[]|
+    any;
 
 export interface IPhotoPayload {
     method: 'photo'
     params: {
         photo: string
+        caption: string
+    }
+}
+export interface IDocumentPayload {
+    method: 'document'
+    params: {
+        document: string
         caption: string
     }
 }

@@ -25,11 +25,13 @@ export default async function run() {
 
 async function post(payload: IPayload): Promise<{}[] | {}> {
     if (Array.isArray(payload)) {
-        return await Promise.all(payload.map(post));
+        return Promise.all(payload.map(post));
     } else {
         switch(payload.method) {
         case 'photo':
             return services.telegram().sendPhoto(payload.params);
+        case 'document':
+            return services.telegram().sendDocument(payload.params);
         default:
             throw new TypeError('unsupported method "' + payload.method + '"');
         }
