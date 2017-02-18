@@ -50,7 +50,7 @@ export default function createStorage(uri: string) {
             const posts = await collection();
             return posts
                 .find({ state: PostState[PostState.SCHEDULED] })
-                .sort({ time: -1 })
+                .sort({ time: 1 })
                 .limit(limit!)
                 .toArray()
                 .then(posts => posts.map(idify));

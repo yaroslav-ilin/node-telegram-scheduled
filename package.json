@@ -1,6 +1,6 @@
 {
   "name": "telegram-scheduled",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Scheduled posting to Telegram using Bots API",
   "main": "dist/index",
   "scripts": {
