@@ -24,17 +24,17 @@ export default function createStorage(uri: string) {
     }
 
     const storage: IStorage = {
-        count: async function(state = PostState.ANY) {
+        async count (state = PostState.ANY) {
             const posts = await collection();
             return posts.count(state === PostState.ANY ? {} : { state: PostState[state!] });
         },
 
-        findById: async function(id): Promise<IPost | null> {
+        async findById (id): Promise<IPost | null> {
             const posts = await collection();
             return posts.findOne({ _id: id }).then(idify);
         },
 
-        findRandomReady: async function(): Promise<IPost | null> {
+        async findRandomReady (): Promise<IPost | null> {
             const total = await storage.count(PostState.READY);
             if (0 === total) {
                 return null;
@@ -46,7 +46,7 @@ export default function createStorage(uri: string) {
             ).then(idify);
         },
 
-        findEarliestScheduled: async function(limit = 1): Promise<IPost[]> {
+        async findEarliestScheduled (limit = 1): Promise<IPost[]> {
             const posts = await collection();
             return posts
                 .find({ state: PostState[PostState.SCHEDULED] })
@@ -56,7 +56,7 @@ export default function createStorage(uri: string) {
                 .then(posts => posts.map(idify));
         },
 
-        findLatestPosted: async function(limit = 1): Promise<IPost[]> {
+        async findLatestPosted (limit = 1): Promise<IPost[]> {
             const posts = await collection();
             return posts
                 .find({ state: PostState[PostState.POSTED] })
@@ -66,7 +66,7 @@ export default function createStorage(uri: string) {
                 .then(posts => posts.map(idify));
         },
 
-        findLatestBanned: async function(limit = 1): Promise<IPost[]> {
+        async findLatestBanned (limit = 1): Promise<IPost[]> {
             const posts = await collection();
             return posts
                 .find({ state: PostState[PostState.BANNED] })
@@ -77,26 +77,26 @@ export default function createStorage(uri: string) {
         },
 
 
-        updateSetBanned: async function(postId: string) {
+        async updateSetBanned (postId: string) {
             const posts = await collection();
             await posts.update({ _id: postId }, {
                 $set: { state: PostState[PostState.BANNED], time: new Date() }
             });
         },
 
-        updateSetReady: async function(postId: string) {
+        async updateSetReady (postId: string) {
             const posts = await collection();
             await posts.update({ _id: postId }, { $set: { state: PostState[PostState.READY] } });
         },
 
-        updateSetScheduled: async function(postId: string, scheduledTime: Date) {
+        async updateSetScheduled (postId: string, scheduledTime: Date) {
             const posts = await collection();
             await posts.update({ _id: postId }, {
                 $set: { state: PostState[PostState.SCHEDULED], time: scheduledTime }
             });
         },
 
-        updateSetPosted: async function(postId: string, postedTime: Date, reason: any) {
+        async updateSetPosted (postId: string, postedTime: Date, reason: any) {
             const posts = await collection();
             await posts.update({ _id: postId }, {
                 $set: { state: PostState[PostState.POSTED], time: postedTime, reason: reason }

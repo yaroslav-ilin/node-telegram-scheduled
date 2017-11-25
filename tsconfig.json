@@ -5,10 +5,7 @@
         "target": "es2016",
         "module": "commonjs",
         "declaration": true,
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "strictNullChecks": true,
+        "strict": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "typeRoots": [

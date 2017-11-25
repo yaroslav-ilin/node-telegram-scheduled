@@ -50,7 +50,7 @@ async function dashboard() {
         store.count(PostState.READY),
         store.count(PostState.SCHEDULED),
         store.count(PostState.BANNED),
-        store.findEarliestScheduled(10),
+        store.findEarliestScheduled(100),
         store.findLatestPosted(10),
         store.findLatestBanned(10)
     ]);

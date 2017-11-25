@@ -8,7 +8,7 @@ import createMongoDB from './mongodb';
 export interface IStorage {
     count: (state?: PostState) => Promise<number>
 
-    findById: (id: string) => Promise<IPost>
+    findById: (id: string) => Promise<IPost | null>
     findRandomReady: () => Promise<IPost | null>
     findEarliestScheduled: (limit?: number) => Promise<IPost[]>
     findLatestPosted: (limit?: number) => Promise<IPost[]>
