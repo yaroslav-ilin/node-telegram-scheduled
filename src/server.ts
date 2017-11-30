@@ -12,11 +12,13 @@ const server = http.createServer(async function(req: http.IncomingMessage, res: 
     try {
         switch(pathnames[0]) {
         case 'dashboard.json':
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.end(JSON.stringify(await dashboard()));
             break;
         case 'dump':
             const post = await dump(pathnames.slice(1));
             if (post) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
                 res.end(JSON.stringify(post));
             } else {
                 sendNotFound(res);
