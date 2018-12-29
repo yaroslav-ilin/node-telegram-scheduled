@@ -27,9 +27,11 @@ async function post(payload: IPayload): Promise<{}[] | {}> {
     if (Array.isArray(payload)) {
         return Promise.all(payload.map(post));
     } else {
-        switch(payload.method) {
+        switch (payload.method) {
         case 'photo':
             return services.telegram().sendPhoto(payload.params);
+        case 'mediaGroup':
+            return services.telegram().sendMediaGroup({ media: payload.params });
         case 'document':
             return services.telegram().sendDocument(payload.params);
         default:

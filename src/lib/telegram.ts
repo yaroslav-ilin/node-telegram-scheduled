@@ -2,13 +2,22 @@ import * as request from 'request';
 
 
 export interface ITelegramPhoto {
-    photo: string
-    caption: string
+    photo: string;
+    caption: string;
 }
 
 export interface ITelegramDocument {
-    document: string
-    caption: string
+    document: string;
+    caption: string;
+}
+
+export interface ITelegramMediaGroup {
+    media: ITelegramMediaGroupPhoto[];
+}
+
+export interface ITelegramMediaGroupPhoto {
+    type: 'photo';
+    media: string;
 }
 
 export default class TelegramBot {
@@ -42,6 +51,14 @@ export default class TelegramBot {
             payload.caption = '';
         }
         return this._request('https://api.telegram.org/bot' + this.token + '/sendPhoto', payload);
+    }
+
+    async sendMediaGroup(params: ITelegramMediaGroup): Promise<{}> {
+        const payload = {
+            chat_id: this.chatId,
+            media: JSON.stringify(params.media)
+        };
+        return this._request('https://api.telegram.org/bot' + this.token + '/sendMediaGroup', payload);
     }
 
     async sendDocument(params: ITelegramDocument): Promise<{}> {
