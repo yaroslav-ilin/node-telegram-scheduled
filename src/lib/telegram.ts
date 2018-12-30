@@ -20,6 +20,8 @@ export interface ITelegramMediaGroupPhoto {
     media: string;
 }
 
+type IAttachments = {[key: string]: request.Request};
+
 export default class TelegramBot {
     constructor(
         protected token: string,
@@ -56,11 +58,21 @@ export default class TelegramBot {
     }
 
     async sendMediaGroup(params: ITelegramMediaGroup): Promise<{}> {
+        const attachments = params.media.reduce((files, item, idx) => {
+            files['attachment' + idx] = request(item.media);
+            return files;
+        }, {} as IAttachments);
+
         const payload = {
             ...params,
             chat_id: this.chatId,
-            media: JSON.stringify(params.media)
+            ...attachments,
+            media: JSON.stringify(params.media.map((item, idx) => ({
+                ...item,
+                media: 'attach://attachment' + idx
+            })))
         };
+
         return this._request('https://api.telegram.org/bot' + this.token + '/sendMediaGroup', payload);
     }
 
