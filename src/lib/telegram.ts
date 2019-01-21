@@ -51,15 +51,15 @@ export default class TelegramBot {
         const payload = {
             ...params,
             chat_id: this.chatId,
-            photo: request(params.photo),
+            photo: request(encodeURI(params.photo)),
             caption: params.caption || ''
-        }
+        };
         return this._request('https://api.telegram.org/bot' + this.token + '/sendPhoto', payload);
     }
 
     async sendMediaGroup(params: ITelegramMediaGroup): Promise<{}> {
         const attachments = params.media.reduce((files, item, idx) => {
-            files['attachment' + idx] = request(item.media);
+            files['attachment' + idx] = request(encodeURI(item.media));
             return files;
         }, {} as IAttachments);
 
@@ -80,7 +80,7 @@ export default class TelegramBot {
         const payload = {
             ...params,
             chat_id: this.chatId,
-            document: request(params.document),
+            document: request(encodeURI(params.document)),
             caption: params.caption || ''
         }
         return this._request('https://api.telegram.org/bot' + this.token + '/sendDocument', payload);
