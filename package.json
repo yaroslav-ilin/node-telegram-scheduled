@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "mongodb": "2.2.33",
-    "pg-promise": "5.9.7",
+    "pg-promise": "11.5.5",
     "request": "2.83.0"
   },
   "devDependencies": {
